@@ -38,21 +38,16 @@ public class DataHolder {
     public void parseJSON(String raw) throws JSONException {
         JSONObject temporaryJSON = new JSONObject(raw);
         JSONArray questions = temporaryJSON.getJSONArray("questions");
-        //System.out.println("PRINTING QUESTIONS:"+ questions.toString());
 
         for (int i=0; i<questions.length(); i++) {
             temporaryJSON = questions.getJSONObject(i);
-            //System.out.println("Printing specific elements:"+ temporaryJSON.toString());
-
 
             //Get the answers only
             JSONArray answers = temporaryJSON.getJSONArray("multiple_choice");
-            //System.out.println("Printing just the answers:" + answers.toString());
             //Then for each answer....
             Choice[] answersArray=new Choice[answers.length()];
             String correctChoice= temporaryJSON.getString("answer");
             String question = temporaryJSON.getString("question");
-            //System.out.println("Correct Choice for this question is: " + correctChoice);
             for (int j=0; j<answers.length(); j++){
                 JSONObject choice = answers.getJSONObject(j);
                 //Make new Answer objects
@@ -60,8 +55,6 @@ public class DataHolder {
                 String choiceLetter = choice.getString("id");
 
                 Choice newChoice =new Choice(choiceLetter+ ") " +choiceText, (choiceLetter.equalsIgnoreCase(correctChoice)));
-                //System.out.println("CHOICE:"+choice.toString() + answers.length());
-                //System.out.println(newChoice.toString());
 
                 answersArray[j]=newChoice;
             }
